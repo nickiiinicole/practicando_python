@@ -60,6 +60,7 @@ print(sorted_frutas)
 
 print("Ordenar una lista de cadenas de texto (mezclas mayúscula y minúscula)")
 frutas = ['manzana', 'Pera', 'Limón', 'manzana', 'pera', 'limón']
+# a la key le puedes pasar la funcion qu quieras para que cumpla el patron 
 frutas.sort(key=str.lower)
 print(frutas)
 
