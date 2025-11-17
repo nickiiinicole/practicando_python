@@ -71,6 +71,41 @@ print(animals.count('🐶')) # Cuantas veces aparece el elemento '🐶' -> 2
 print('🐼' in animals) # Comprueba si hay un '🐼' en la lista -> True
 print('🐹' in animals) # -> False
 
+
+# FILTER
+# ➡ Devuelve solo los elementos que cumplan una condición (True).
+
+# La función debe devolver True o False.
+
+# Devuelve un generador, por eso luego hacemos list(filter(...)).
+numeros = [1, 2, 3, 4, 5, 6]
+
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+print(pares)
+nums = [-3, 0, 4, 10, -2]
+
+positivos = list(filter(lambda x: x > 0, nums))
+print(positivos)
+
+palabras = ["hola", "sol", "computadora", "perro"]
+
+largas = list(filter(lambda p: len(p) > 4, palabras))
+print(largas)
+
+emails = ["ana@", "juan@gmail.com", "x", "pepe@hotmail.com"]
+
+validos = list(filter(lambda e: "@" in e, emails))
+print(validos)
+
+productos = [
+    {"nombre": "Laptop", "precio": 1200},
+    {"nombre": "Libro", "precio": 20},
+    {"nombre": "Monitor", "precio": 150}
+]
+
+caros = list(filter(lambda p: p["precio"] > 100, productos))
+print(caros)
+
 ###
 # EJERCICIOS
 # Usa siempre que puedas los métodos que has aprendido
