@@ -1,75 +1,139 @@
-###
-# 04 - Listas Métodos
-# Los métodos más importantes para trabajar con listas
-###
+"""
+04 - Listas: Métodos Fundamentales y Operaciones Avanzadas
+
+Módulo para demostrar las funcionalidades esenciales y avanzadas (filter)
+de la estructura de datos 'list' en Python.
+"""
 
 from os import system
-if system("clear") != 0: system("cls")
 
-# Creamos una lista con valores
-lista1 = ['a', 'b', 'c', 'd']
+# Configuración inicial para limpiar la consola en diferentes sistemas operativos
+def clear_console():
+    """Limpia la consola. Compatible con sistemas UNIX y Windows."""
+    if system("clear") != 0:
+        system("cls")
 
-# Añadir o insertar elementos a la lista
-lista1.append('e') # Añade un elemento al final
-print(lista1)
+clear_console()
 
-lista1.insert(1, '@') # Inserta un elemento en la posición que le indiquemos como primer argumento
-print(lista1)
 
-lista1.extend(['😃', '😍']) # Agrega elementos al final de la lista
-print(lista1)
+## 1. Métodos de Modificación y Mutación
+# -------------------------------------
+
+lista_basica = ['a', 'b', 'c', 'd']
+print(f"Lista inicial: {lista_basica}\n")
+
+# Añadir o insertar elementos
+# Utilizar .append() es O(1) en tiempo promedio, la forma más eficiente de añadir.
+lista_basica.append('e')  # Añade un elemento al final
+print(f"Después de .append('e'): {lista_basica}")
+
+# .insert() es O(n) ya que requiere desplazar el resto de elementos, evitar en listas muy grandes.
+lista_basica.insert(1, '@')  # Inserta '@' en el índice 1
+print(f"Después de .insert(1, '@'): {lista_basica}")
+
+# .extend() para fusionar de forma eficiente (O(k) donde k es la longitud del iterable).
+lista_basica.extend(['😃', '😍'])  # Agrega elementos de un iterable al final
+print(f"Después de .extend(['😃', '😍']): {lista_basica}\n")
 
 # Eliminar elementos de la lista
-lista1.remove('@') # Eliminar la primera aparición de la cadena de texto @
-print(lista1)
+# .remove() busca el valor O(n) y luego elimina O(n), por lo que es O(n).
+lista_basica.remove('@')  # Elimina la primera aparición del valor '@'
+print(f"Después de .remove('@'): {lista_basica}")
 
-ultimo = lista1.pop() # Eliminar el último elemento de la lista y además te lo devuelve
-print(ultimo)
-print(lista1)
+# .pop() es O(1) si no se especifica índice (elimina el último).
+ultimo_elemento = lista_basica.pop()
+print(f"Elemento eliminado con .pop(): {ultimo_elemento}")
+print(f"Lista después de .pop(): {lista_basica}")
 
-lista1.pop(1) # Eliminar el segundo elemento de la lista (es el índice 1)
-print(lista1)
+# .pop(i) es O(n)
+lista_basica.pop(1)  # Elimina el elemento en el índice 1 ('c' o 'd' dependiendo del estado)
+print(f"Después de .pop(1): {lista_basica}")
 
-# Eliminar por lo bestia un índice
-del lista1[-1]
-print(lista1)
+# Usar 'del' para eliminar por índice/slicing. Eficiente si se conoce el índice.
+del lista_basica[-1]  # Elimina el último elemento
+print(f"Después de del lista_basica[-1]: {lista_basica}")
 
-lista1.clear() # Eliminar todos los elementos de la lista
-print(lista1)
+# Eliminar todos los elementos de manera eficiente.
+lista_basica.clear()
+print(f"Después de .clear(): {lista_basica}")
 
-# Eliminar un rango de elementos
-lista1 = ['🐼', '🐨', '🐶', '😿', '🐹']
-del lista1[1:3] # eliminamos los elementos del índice 1 al 3 (no incluye el índice 3)
-print(lista1)
+# Eliminar un rango de elementos usando slicing y del.
+lista_slicing = ['🐼', '🐨', '🐶', '😿', '🐹']
+# El slicing [1:3] incluye el índice 1 y 2, excluyendo el 3.
+del lista_slicing[1:3]
+print(f"Lista después de del lista_slicing[1:3]: {lista_slicing}\n")
 
-# Más métodos útiles
-print('Ordenar listas modificando la original')
+
+## 2. Métodos de Ordenamiento y Consulta
+# -------------------------------------
+
 numbers = [3, 10, 2, 8, 99, 101]
+
+# .sort(): Ordena la lista IN-PLACE (mutación). Es más eficiente en memoria.
+print('--- Ordenar listas ---')
+print(f"Lista original antes de .sort(): {numbers}")
 numbers.sort()
-print(numbers)
+print(f"Lista después de .sort() (mutada): {numbers}")
 
-print('Ordenar listas creando una nueva lista')
-numbers = [3, 10, 2, 8, 99, 101]
-sorted_numbers = sorted(numbers)
-print(sorted_numbers)
+# sorted(): Devuelve una NUEVA lista ordenada (no muta la original).
+numbers_unsorted = [3, 10, 2, 8, 99, 101]
+sorted_numbers = sorted(numbers_unsorted)
+print(f"Lista original después de sorted(): {numbers_unsorted} (sin mutar)")
+print(f"Nueva lista ordenada con sorted(): {sorted_numbers}")
 
-print("Ordenar una lista de cadenas de texto (todo minúscula)")
-frutas = ['manzana', 'pera', 'limón', 'manzana', 'pera', 'limón']
-sorted_frutas = sorted(frutas)
-print(sorted_frutas)
-
-print("Ordenar una lista de cadenas de texto (mezclas mayúscula y minúscula)")
+# Ordenar con 'key' para personalización (O(n log n))
+print("\n--- Ordenar strings con key ---")
 frutas = ['manzana', 'Pera', 'Limón', 'manzana', 'pera', 'limón']
-# a la key le puedes pasar la funcion qu quieras para que cumpla el patron 
+# La key=str.lower permite ordenar ignorando la capitalización
 frutas.sort(key=str.lower)
-print(frutas)
+print(f"Lista ordenada con key=str.lower: {frutas}")
 
-# Más cositas útiles
+# Métodos de consulta
+print('\n--- Métodos de Consulta ---')
 animals = ['🐶', '🐼', '🐨', '🐶']
-print(len(animals)) # Tamaño de la listas -> 4
-print(animals.count('🐶')) # Cuantas veces aparece el elemento '🐶' -> 2
-print('🐼' in animals) # Comprueba si hay un '🐼' en la lista -> True
-print('🐹' in animals) # -> False
+print(f"Tamaño de la lista (len()): {len(animals)}")
+print(f"Veces que aparece '🐶' (.count()): {animals.count('🐶')}")
+print(f"Comprobar existencia de '🐼' ('in'): {'🐼' in animals}")
+print(f"Comprobar existencia de '🐹' ('in'): {'🐹' in animals}\n")
+
+
+## 3. Uso Avanzado: La función filter()
+# -------------------------------------
+
+# filter() es una función de orden superior que aplica una función
+# booleana a cada elemento de un iterable y devuelve un iterador
+# con los elementos que resultaron True. Es una alternativa 'funcional'
+# a las list comprehensions.
+
+print('--- Operación filter() ---')
+
+# Ejemplo 1: Filtrar números pares
+numeros = [1, 2, 3, 4, 5, 6]
+# Se usa lambda para la función de predicado: x % 2 == 0
+pares = list(filter(lambda x: x % 2 == 0, numeros))
+print(f"Números pares: {pares}")
+
+# Ejemplo 2: Filtrar diccionarios por valor
+productos = [
+    {"nombre": "Laptop", "precio": 1200},
+    {"nombre": "Libro", "precio": 20},
+    {"nombre": "Monitor", "precio": 150}
+]
+# Filtrar productos cuyo precio es mayor a 100
+caros = list(filter(lambda p: p["precio"] > 100, productos))
+print(f"Productos caros (>100): {caros}")
+
+# Nota: Para la mayoría de los casos de uso, las 'list comprehensions'
+# suelen ser más legibles y performantes que list(filter(...)).
+# Ejemplo equivalente con list comprehension:
+# caros_lc = [p for p in productos if p["precio"] > 100]
+
+## 4. Uso Avanzado: La función ALL()
+# -------------------------------------
+
+# all(iterable) devuelve True si todos los elementos del iterable son True, 
+# de lo contrario devuelve False.
+
 
 ###
 # EJERCICIOS
@@ -113,3 +177,38 @@ print('🐹' in animals) # -> False
 # Ejercicio 6: Ordenar strings sin diferenciar mayúsculas y minúsculas.
 # Crea una lista con las siguientes cadenas: ["Manzana", "pera", "BANANA", "naranja"].
 # Ordena la lista sin diferenciar entre mayúsculas y minúsculas.
+
+
+# --------------------------------------------------------------
+# EJERCICIOS A PARTE
+# I. EJERCICIOS FUNDAMENTALES (Revisión y Consolidación)
+# Ejercicio 1: Gestión de Stock y Rendimiento
+# Crea una lista llamada inventario con los números del 1 al 10.
+
+# Utiliza el método más eficiente para añadir los números 11 y 12 al final.
+
+# Utiliza pop() sin argumentos para simular la venta del último producto. Almacena su valor en una variable y imprímela.
+
+# El producto con ID 5 ha sido retirado. Usa remove() para eliminar el primer 5 de la lista.
+
+# Imprime el estado final del inventario.
+
+# Ejercicio 2: Slicing Avanzado y Mutación
+# Crea una lista alfabeto que contenga las letras de 'a' a 'j'.
+
+# Utiliza una asignación con slicing (lista[i:j] = ...) para reemplazar las letras 'c', 'd', 'e' por las letras 'x', 'y', 'z'.
+
+# Utiliza el comando del con slicing para eliminar las letras 'h', 'i' y 'j' de una sola vez.
+
+# Imprime el alfabeto resultante.
+
+# Ejercicio 3: Copia Profunda vs. Copia Superficial (Referencia)
+# Crea una lista original = [1, [2, 3], 4].
+
+# Crea una copia superficial (shallow copy) llamada copia_s usando list.copy() o slicing.
+
+# Crea una copia profunda (deep copy) llamada copia_p importando copy y usando copy.deepcopy().
+
+# Modifica el primer elemento de la lista anidada dentro de original (es decir, cambia el 2 a 99).
+
+# Imprime original, copia_s y copia_p. Explica en un comentario por qué copia_s se vio afectada y copia_p no.
