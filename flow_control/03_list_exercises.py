@@ -110,3 +110,28 @@ print(trim_frutas)
 lista = [1, 2, 3, 4, 5]
 rotada = lista[1:] + lista[:1]
 print(rotada)
+
+#EJERCICIO A PARTE 
+inventario = [i for i in range(1,11)]
+
+#-> añade al inventario al final 11,12
+inventario.append(11)
+inventario.append(12)
+ultimo_inventario = inventario.pop()
+print(ultimo_inventario)
+
+inventario.remove(5)
+print(inventario)
+
+#otro ejercicio chorra
+#en c# sí se podía sumar 1 a un char para obtener la siguiente letra.
+# En Python también se puede, pero no se puede hacer directamente 
+# con char + 1, hay que convertir la letra a su código ASCII, 
+# sumarle 1, y volver a convertirla.:(((((((((((((( te extraño c#
+# convierte a char -> chr() , y el ord()-> ascii
+abecedario = [chr(i) for i in range(ord('a'), ord('j') + 1)]
+
+abecedario[2:5] = 'x', 'y', 'z'
+del(abecedario[6:])
+print(abecedario)
+
