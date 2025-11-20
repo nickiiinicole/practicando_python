@@ -131,8 +131,19 @@ print(f"Productos caros (>100): {caros}")
 ## 4. Uso Avanzado: La función ALL()
 # -------------------------------------
 
-# all(iterable) devuelve True si todos los elementos del iterable son True, 
-# de lo contrario devuelve False.
+# all(iterable) Devuelve True si TODOS los elementos cumplen la condición (o son True)
+numeros = [2, 3, 6]
+resultado = all(n % 2 == 0 for n in numeros)
+print(resultado)   # False
+
+# Any , Devuelve True si AL MENOS UN elemento cumple la condición.
+numeros = [1, 3, 4, 7]
+resultado = any(n % 2 == 0 for n in numeros)
+print(resultado)   # True
+
+numeros = [1, 3, 5]
+resultado = any(n % 2 == 0 for n in numeros)
+print(resultado)   # False
 
 
 ###
@@ -142,19 +153,27 @@ print(f"Productos caros (>100): {caros}")
 
 # Ejercicio 1: Añadir y modificar elementos
 # Crea una lista con los números del 1 al 5.
-# Añade el número 6 al final usando append().
-# Inserta el número 10 en la posición 2 usando insert().
-# Modifica el primer elemento de la lista para que sea 0.
+lista = [i for i in range(1,6)]
 
+# Añade el número 6 al final usando append().
+lista.insert(len(lista), 6)
+# Inserta el número 10 en la posición 2 usando insert().
+lista.insert(2,10)
+# Modifica el primer elemento de la lista para que sea 0.
+lista[0]= 0
 # Ejercicio 2: Combinar y limpiar listas
 # Crea dos listas:
-# lista_a = [1, 2, 3]
-# lista_b = [4, 5, 6, 1, 2]
+lista_a = [1, 2, 3]
+lista_b = [4, 5, 6, 1, 2]
 # Extiende lista_a con lista_b usando extend().
+lista_a.extend(lista_b)
+print(lista_a)
 # Elimina la primera aparición del número 1 en lista_a usando remove().
+lista_a.remove(1)
 # Elimina el elemento en el índice 3 de lista_a usando pop(). Imprime el elemento eliminado.
+print(lista_a.pop(3))
 # Limpia completamente lista_b usando clear().
-
+lista_b.clear()
 # Ejercicio 3: Slicing y eliminación con del
 # Crea una lista con los números del 1 al 10.
 # Utiliza slicing y del para eliminar los elementos desde el índice 2 hasta el 5 (sin incluir el 5).
