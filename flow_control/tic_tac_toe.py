@@ -1,11 +1,10 @@
 
-#TODO MOSTRAR TABLERO CADA VEZ E IR ACUTALIZANDO CADA MOVIMEINTO, COMPROBACIONES DE RANGOS, EXCEPCIONES
+#TODO COMPROBACIONES DE RANGOS, EXCEPCIONES
 def get_player():
     '''el jugador escoge el símbolo'''
     symbol_valid = False
     print("WELCOME TO TIC TAC TOE :D")
     while not symbol_valid:
-
         player1_symbol = input("Please choose ur symbol (O or X)").upper()
         if player1_symbol != 'X' and player1_symbol != 'O':
             print("Please enter a valid symbol:/")
@@ -17,7 +16,7 @@ def get_player():
             player2_symbol='X'
             symbol_valid = True
 
-    return player2_symbol, player2_symbol
+    return player1_symbol, player2_symbol
     
 def start_game():
     
@@ -28,45 +27,48 @@ def start_game():
     board = init_board()
     num_cols = len(board[0]) 
     current_player=player1
+    number_move=0
     while not gameOver:
 
-        print(f"PLAYER {current_player} IS UR TURN:)")
-        number_move = int(input("Pick a spot (1-9): "))
-        row = (number_move-1) // num_cols
-        col = (number_move-1) % num_cols 
+        show_board(board)
+        valid_spot= False
+        while not valid_spot:
 
-        #comprobamos que el numeor qu eesochio ya no este usado
-        if board[row][col] == 0:
-             board[row][col] = current_player
-        else: 
-            #hacer while de que vuelva intentarlo
-            print("This spot is not empty:/")
+            try:
+                
+                print(f"PLAYER {current_player} IS UR TURN:)")
+                number_move = int(input("Pick a spot (1-9): "))
+                if not(1<= number_move <=9):
+                    print("Please a enter a valid range")
+                    # valid_spot=False
+                    continue # VUELVE AL INCIIO DEL BUCLE
+            except ValueError:
+                print("Not valid number")
+                valid_spot = False
+            
+            valid_spot=True
+            row = (number_move-1) // num_cols
+            col = (number_move-1) % num_cols 
 
+            #comprobamos que el numero qu escogio ya no este usado
+            if board[row][col] == 0:
+                board[row][col] = current_player
+                valid_spot=True
+            else: 
+                #hacer while de que vuelva intentarlo
+                print("This spot is not empty:/. Please choose a valid spot")
+                valid_spot=False
+                
         game_status= check_winner(board)
         if game_status !=None:
-           
+            show_board(board)
             if game_status == "DRAW":
                 print("IT'S A DRAW!")
             else:
-                print(f"CONGRATULATIONS PLAYER {game_status}!!")
-            
+                print(f"CONGRATULATIONS PLAYER {game_status}:D!!")
             gameOver = True
+        current_player = player2 if current_player == player1 else player1
         
-        if current_player == player1:
-            current_player = player2
-        else:
-            current_player = player1
-
-        print("PLAYER 2 IS UR TURN:)")
-        number_move = int(input("Pick a spot;) player2"))
-        row = (number_move-1)// num_cols
-        col = (number_move-1)% num_cols
-        board[row][col]= player2
-
-        return 9
-    
-
-    
     
 def check_winner(board):
 
@@ -109,9 +111,42 @@ def check_winner(board):
     
     return None # sigue aca ya que ay todavia 0 en el tqablero:)
     
-def show_board():
+def show_board(board):
+    num_spot = 1
+    for i in range(len(board)):
+        for j in range(len(board[0])):
+            if board[i][j]==0:
+                print(num_spot)
+            
+        num_spot+=1
 
-    return 
+    print(board)
+
+def show_board(board):
+    num_spot = 1
+    
+    for i in range(len(board)):
+        #para la linea divisiora
+        if i != 0:
+            print("—" * 11) 
+        for j in range(len(board[0])):
+
+            if board[i][j] == 0:
+                # Si está vacío-> usamos el número del contador para mostrar
+                display_value = num_spot
+            else:
+                # mostrmaos el simbolo del jugador
+                display_value = board[i][j]
+            print(f" {display_value}", end="")
+            
+            if j < len(board[0]) - 1:
+                print(" |", end="")
+
+            num_spot += 1 
+            
+        # para sasltar la linea 
+        print() 
+    
 
 def init_board():
     '''Restablece los valores de la tabla de jeugo:D'''
@@ -122,4 +157,4 @@ def init_board():
         [0,0,0]
     ]
 
-
+start_game()
