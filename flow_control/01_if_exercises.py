@@ -6,7 +6,7 @@
 # Ejercicio 1: Determinar el mayor de dos números
 # Pide al usuario que introduzca dos números y muestra un mensaje
 # indicando cuál es mayor o si son iguales
-'''''
+
 print("\nEjercicio 1:")
 number = int(input("Please enter the first number: "))
 number2 = int(input("Please enter the second number: "))
@@ -43,7 +43,6 @@ else:
 
 if result is not None:
     print(f"The result is: {result:.2f}")
-'''
 
 # Ejercicio 3: Año bisiesto
 # Pide al usuario que introduzca un año y determina si es bisiesto.
