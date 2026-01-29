@@ -109,9 +109,7 @@ print("\n")
 # ==============================================================================
 # NIVEL 4: EJEMPLO REAL DE EXAMEN (Validación)
 # ==============================================================================
-# Decorador que impide que una función reciba números negativos.
-
-def validar_positivos(func):
+# Decorador que impide que +
     def wrapper(*args, **kwargs):
         # Revisamos los argumentos ANTES de llamar a la función
         for arg in args:
